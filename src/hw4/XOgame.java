@@ -7,7 +7,7 @@ public class XOgame {
     static final Scanner sc = new Scanner(System.in);
     static final Random random = new Random();
     static char[][] map;
-    static int SIZE = 4;
+    static int SIZE = 5;
     static int DOTS_TO_WIN = 4;
     static final char DOT_EMPTY = '.';
     static final char DOT_X = 'X';
@@ -114,7 +114,7 @@ public class XOgame {
         return false;
     }*/
 
-    static boolean checkWin(char dot) { //проверка победы
+    static boolean checkWin(char dot) {
         int diag1;
         int diag2;
         int hor;
@@ -125,13 +125,17 @@ public class XOgame {
             for (int j = 0; j < SIZE; j++) {
                 if (map[i][j] == dot) {
                     hor++;
+                } else if (map[i][j] != dot && hor < DOTS_TO_WIN) {
+                    hor = 0;
                 }
                 if (map[j][i] == dot) {
                     ver++;
+                } else if (map[j][i] != dot && ver < DOTS_TO_WIN) {
+                    ver = 0;
                 }
             }
             // проверка по горизонтали и вертикали
-            if (hor == SIZE || ver == SIZE) {
+            if (hor == DOTS_TO_WIN || ver == DOTS_TO_WIN) {
                 return true;
             }
         }
@@ -140,13 +144,17 @@ public class XOgame {
         for (int i = 0; i < SIZE; i++) {
             if (map[i][i] == dot) {
                 diag1++;
+            } else if (map[i][i] != dot && diag1 < DOTS_TO_WIN) {
+                diag1 = 0;
             }
             if (map[i][SIZE - i - 1] == dot) {
                 diag2++;
+            } else if (map[i][i] != dot && diag2 < DOTS_TO_WIN) {
+                diag2 = 0;
             }
         }
         // проверка по диагоналям
-        if (diag1 == SIZE || diag2 == SIZE) {
+        if (diag1 == DOTS_TO_WIN || diag2 == DOTS_TO_WIN) {
             return true;
         }
         return false;
